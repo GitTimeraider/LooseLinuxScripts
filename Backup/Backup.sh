@@ -10,10 +10,10 @@ if [ "$backup_count" -ge "$BACKUP_LIMIT" ]; then
     rm "$oldest_backup"
 fi
 
-# Create a new backup file with the current date
+# Define a new backup file with the current date
 backup_file="/backup_$(date +%Y-%m-%d).tar.gz"
 
-# Create the tar archive and suppress errors
+# Create the tar archive
 {
     sudo tar czf "$backup_file" \
         --exclude="$backup_file" \
