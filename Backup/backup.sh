@@ -32,7 +32,7 @@ show_progress() {
             progress=100
         fi
         echo -ne "\rProgress: $progress%"
-        sleep 5
+        sleep 10
     done
     echo -ne "\rProgress: 100%\n"
 }
