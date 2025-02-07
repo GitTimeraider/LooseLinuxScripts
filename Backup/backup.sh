@@ -56,6 +56,9 @@ show_progress() {
         / 2>/dev/null
 } &
 
+# Show warning
+echo "Wait for the script to finish, even when the progress bar shows 100%!"
+
 # Show progress bar
 show_progress $!
 
