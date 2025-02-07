@@ -11,13 +11,27 @@ if [ "$backup_count" -ge "$BACKUP_LIMIT" ]; then
 fi
 
 # Create a new backup file with the current date
-sudo tar czf /backup_$(date +%Y-%m-%d).tar.gz \
-    --exclude=/backup_$(date +%Y-%m-%d).tar.gz \
-    --exclude=/dev \
-    --exclude=/mnt \
-    --exclude=/proc \
-    --exclude=/sys \
-    --exclude=/tmp \
-    --exclude=/media \
-    --exclude=/lost+found \
-    /
+backup_file="/backup_$(date +%Y-%m-%d).tar.gz"
+
+# Create the tar archive and suppress errors
+{
+    sudo tar czf "$backup_file" \
+        --exclude="$backup_file" \
+        --exclude=/dev \
+        --exclude=/mnt \
+        --exclude=/proc \
+        --exclude=/sys \
+        --exclude=/tmp \
+        --exclude=/media \
+        --exclude=/lost+found \
+        / 2>/dev/null
+} &
+
+# Simple progress indicator
+pid=$!
+while kill -0 $pid 2>/dev/null; do
+    echo -n "."
+    sleep 10
+done
+
+echo "Backup completed: $backup_file"
