@@ -16,6 +16,11 @@ fi
 # Define a new backup file with the current date
 backup_file="${BACKUP_LOCATION}backup_$(date +%Y-%m-%d).tar.gz"
 
+# Check if a backup file with the same name already exists and delete it if it does
+if [ -f "$backup_file" ]; then
+    rm "$backup_file"
+fi
+
 # Get the size of the most recent backup file for progress calculation
 recent_backup=$(ls -t ${BACKUP_LOCATION}backup_*.tar.gz | head -1)
 recent_backup_size=$(du -sb "$recent_backup" | awk '{print $1}')
