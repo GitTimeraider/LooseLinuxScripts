@@ -1,5 +1,5 @@
-sudo tar czf /backup.tar.gz \
-    --exclude=/backup.tar.gz \
+sudo tar czf /backup_$(date +%Y-%m-%d).tar.gz \
+    --exclude=/backup_$(date +%Y-%m-%d).tar.gz \
     --exclude=/dev \
     --exclude=/mnt \
     --exclude=/proc \
