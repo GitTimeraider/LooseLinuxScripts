@@ -6,7 +6,7 @@ BACKUP_LIMIT=3
 # Set the backup location
 BACKUP_LOCATION="/"
 
-# Check for existing backup files and delete the oldest if there are already MAX_BACKUPS
+# Check for existing backup files and delete the oldest if it reached the backup limit
 backup_count=$(ls ${BACKUP_LOCATION}backup_*.tar.gz 2>/dev/null | wc -l)
 if [ "$backup_count" -ge "$BACKUP_LIMIT" ]; then
     oldest_backup=$(ls -t ${BACKUP_LOCATION}backup_*.tar.gz | tail -1)
@@ -19,7 +19,7 @@ backup_file="${BACKUP_LOCATION}backup_$(date +%Y-%m-%d).tar.gz"
 # Get the size of the most recent backup file for progress calculation
 recent_backup=$(ls -t ${BACKUP_LOCATION}backup_*.tar.gz | head -1)
 recent_backup_size=$(du -sb "$recent_backup" | awk '{print $1}')
-# Add 10% to the recent backup size
+# Add 10% to the recent backup size to make the bar more forgiving for growing backups
 target_size=$((recent_backup_size + recent_backup_size / 10))
 
 # Function to show progress bar
