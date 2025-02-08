@@ -9,12 +9,6 @@ BACKUP_LIMIT=4
 # Set the backup location. End the location with /
 BACKUP_LOCATION="/mnt/"
 
-### Restore variables
-#Backup file to restore from
-RESTORE_FILE="/mnt/example.tar.gz"
-#Location to restore to
-RESTORE_LOC="/"
-
 # Check the mode and execute the corresponding part of the script
 if [ "$MODE" == "backup" ]; then
 
