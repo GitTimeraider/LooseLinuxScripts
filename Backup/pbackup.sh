@@ -4,7 +4,7 @@
 BACKUP_LIMIT=3
 
 # Set the backup location
-BACKUP_LOCATION="/mnt/"
+BACKUP_LOCATION="/mnt/USB/backup/"
 
 # Check for existing backup files and delete the oldest if it reached the backup limit
 backup_files=$(ls ${BACKUP_LOCATION}pbackup_*.tar.gz 2>/dev/null)
@@ -27,7 +27,8 @@ recent_backup=$(echo "$backup_files" | head -1)
 if [ -n "$recent_backup" ]; then
     recent_backup_size=$(du -sb "$recent_backup" | awk '{print $1}')
 else
-    recent_backup_size=0
+    # Set a default size if no previous backups exist
+    recent_backup_size=1000000  # 1MB
 fi
 # Add 10% to the recent backup size to make the bar more forgiving for growing backups
 target_size=$((recent_backup_size + recent_backup_size / 10))
@@ -68,12 +69,3 @@ echo "Wait for the script to finish, even when the progress bar shows 100%!"
 show_progress $!
 
 echo "Backup completed: $backup_file"
-
-
-# Simple progress indicator
-#pid=$!
-#while kill -0 $pid 2>/dev/null; do
-#    echo -n "."
-#    sleep 10
-#done
-
