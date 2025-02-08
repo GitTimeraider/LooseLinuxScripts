@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Script mode. Can be either backup or restore .. executes the specified part of the script
-Mode="restore"
+MODE="restore"
 
 ###BACKUP MODE
 # Set the maximum number of backup files to keep
