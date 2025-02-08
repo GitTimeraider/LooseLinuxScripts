@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#Script mode. Can be either backup or restore .. executes the specified part of the script
+Mode="restore"
+
+#Backup mode
 # Set the maximum number of backup files to keep
 BACKUP_LIMIT=4
 
