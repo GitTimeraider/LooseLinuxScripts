@@ -100,11 +100,12 @@ elif [ "$MODE" == "restore" ]; then
         exit 1
     fi
 
+    PS3="Which file do you want to restore? "
     select file in "${backup_files[@]}"; do
         if [ -n "$file" ]; then
             echo "You selected: $file"
             echo "Restoring backup to ${RESTORE_LOCATION}..."
-            echo "Plase be patient while the backup is being restored"
+            echo "Please be patient while the backup is being restored"
             sudo tar xzf "$file" -C "${RESTORE_LOCATION}"
             echo "Restore completed."
             break
