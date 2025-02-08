@@ -106,7 +106,7 @@ elif [ "$MODE" == "restore" ]; then
             echo "You selected: $file"
             echo "Restoring backup to ${RESTORE_LOCATION}..."
             echo "Please be patient while the backup is being restored"
-            sudo tar xzf "$file" -C "${RESTORE_LOCATION}"
+            sudo tar xzf "$file" --overwrite -C "${RESTORE_LOCATION}"
             echo "Restore completed."
             break
         else
