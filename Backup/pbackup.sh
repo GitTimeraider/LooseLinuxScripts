@@ -39,15 +39,10 @@ if [ "$MODE" == "backup" ]; then
         recent_backup_size=$(du -sb "$recent_backup" | awk '{print $1}')
     else
         # Set a default size if no previous backups exist
-        recent_backup_size=1000000  # 1MB
+        recent_backup_size=10000000000  # 10GB
     fi
     # Add 10% to the recent backup size to make the bar more forgiving for growing backups
     target_size=$((recent_backup_size + recent_backup_size / 10))
-
-    # Ensure target_size is not zero
-    if [ "$target_size" -eq 0 ]; then
-        target_size=1000000  # 1MB
-    fi
 
     # Function to show progress bar
     show_progress() {
