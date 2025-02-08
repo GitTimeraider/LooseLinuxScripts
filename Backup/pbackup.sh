@@ -78,6 +78,7 @@ if [ "$MODE" == "backup" ]; then
     } &
 
     # Show warning
+    echo "Backup started!"
     echo "Wait for the script to finish, even when the progress bar shows 100%!"
 
     # Show progress bar
