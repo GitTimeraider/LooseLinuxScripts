@@ -9,6 +9,9 @@ BACKUP_LIMIT=4
 # Set the backup location. End the location with /
 BACKUP_LOCATION="/mnt/"
 
+### Restore variables
+RESTORE_LOCATION="/"
+
 # Check the mode and execute the corresponding part of the script
 if [ "$MODE" == "backup" ]; then
 
@@ -89,7 +92,24 @@ if [ "$MODE" == "backup" ]; then
 elif [ "$MODE" == "restore" ]; then
 
     ### RESTORE MODE
-    
+    echo "Available backup files:"
+    backup_files=($(ls ${BACKUP_LOCATION}pbackup_*.tar.gz 2>/dev/null))
+    if [ ${#backup_files[@]} -eq 0 ]; then
+        echo "No backup files found in ${BACKUP_LOCATION}"
+        exit 1
+    fi
+
+    select file in "${backup_files[@]}"; do
+        if [ -n "$file" ]; then
+            echo "You selected: $file"
+            echo "Restoring backup to ${RESTORE_LOCATION}..."
+            sudo tar xzf "$file" -C "${RESTORE_LOCATION}"
+            echo "Restore completed."
+            break
+        else
+            echo "Invalid selection. Please try again."
+        fi
+    done
 
 else
     echo "Invalid mode: $MODE"
