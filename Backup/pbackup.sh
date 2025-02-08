@@ -1,18 +1,24 @@
 #!/bin/bash
 
 # Script mode. Can be either backup or restore .. executes the specified part of the script
-MODE="restore"
+MODE="backup"
+
+### Backup Variables
+# Set the maximum number of backup files to keep
+BACKUP_LIMIT=4 
+# Set the backup location. End the location with /
+BACKUP_LOCATION="/mnt/"
+
+### Restore variables
+#Backup file to restore from
+RESTORE_FILE="/mnt/example.tar.gz"
+#Location to restore to
+RESTORE_LOC="/"
 
 # Check the mode and execute the corresponding part of the script
 if [ "$MODE" == "backup" ]; then
 
     ### BACKUP MODE
-    # Set the maximum number of backup files to keep
-    BACKUP_LIMIT=4
-
-    # Set the backup location. End the location with /
-    BACKUP_LOCATION="/mnt/"
-
     # Check for existing backup files and delete the oldest if it reached the backup limit
     backup_files=$(ls ${BACKUP_LOCATION}pbackup_*.tar.gz 2>/dev/null)
     backup_count=$(echo "$backup_files" | wc -l)
@@ -89,7 +95,7 @@ if [ "$MODE" == "backup" ]; then
 elif [ "$MODE" == "restore" ]; then
 
     ### RESTORE MODE
-    echo "Restore mode is not implemented yet."
+    
 
 else
     echo "Invalid mode: $MODE"
