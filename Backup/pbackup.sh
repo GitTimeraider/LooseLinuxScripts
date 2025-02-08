@@ -2,14 +2,15 @@
 
 # Script mode. Can be either backup or restore .. executes the specified part of the script
 MODE="backup"
-
-### Backup Variables
-# Set the maximum number of backup files to keep
-BACKUP_LIMIT=4 
 # Set the backup location. End the location with /
 BACKUP_LOCATION="/mnt/"
 
-### Restore variables
+### Backup Variables. Only work in backup mode
+# Set the maximum number of backup files to keep
+BACKUP_LIMIT=4 
+
+### Restore variables. Only work in restore mode
+# Location to restore to
 RESTORE_LOCATION="/"
 
 # Check the mode and execute the corresponding part of the script
@@ -92,7 +93,7 @@ if [ "$MODE" == "backup" ]; then
 elif [ "$MODE" == "restore" ]; then
 
     ### RESTORE MODE
-    echo "Available backup files:"
+    echo "Available backup files that can be restored:"
     backup_files=($(ls ${BACKUP_LOCATION}pbackup_*.tar.gz 2>/dev/null))
     if [ ${#backup_files[@]} -eq 0 ]; then
         echo "No backup files found in ${BACKUP_LOCATION}"
@@ -103,6 +104,7 @@ elif [ "$MODE" == "restore" ]; then
         if [ -n "$file" ]; then
             echo "You selected: $file"
             echo "Restoring backup to ${RESTORE_LOCATION}..."
+            echo "Plase be patient while the backup is being restored"
             sudo tar xzf "$file" -C "${RESTORE_LOCATION}"
             echo "Restore completed."
             break
