@@ -42,12 +42,16 @@ fi
 show_progress() {
     local current_size
     while [ -d /proc/$1 ]; do
-        current_size=$(du -sb "$backup_file" 2>/dev/null | awk '{print $1}')
-        progress=$((current_size * 100 / target_size))
-        if [ $progress -gt 100 ]; then
-            progress=100
+        if [ -f "$backup_file" ]; then
+            current_size=$(du -sb "$backup_file" 2>/dev/null | awk '{print $1}')
+            progress=$((current_size * 100 / target_size))
+            if [ $progress -gt 100 ]; then
+                progress=100
+            fi
+            echo -ne "\rProgress: $progress%"
+        else
+            echo -ne "\rProgress: 0%"
         fi
-        echo -ne "\rProgress: $progress%"
         sleep 10
     done
     echo -ne "\rProgress: 100%\n"
