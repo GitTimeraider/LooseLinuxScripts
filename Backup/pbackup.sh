@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the maximum number of backup files to keep
-BACKUP_LIMIT=3
+BACKUP_LIMIT=4
 
 # Set the backup location
 BACKUP_LOCATION="/mnt/USB/backup/"
@@ -32,6 +32,11 @@ else
 fi
 # Add 10% to the recent backup size to make the bar more forgiving for growing backups
 target_size=$((recent_backup_size + recent_backup_size / 10))
+
+# Ensure target_size is not zero
+if [ "$target_size" -eq 0 ]; then
+    target_size=1000000  # 1MB
+fi
 
 # Function to show progress bar
 show_progress() {
