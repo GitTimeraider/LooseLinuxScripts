@@ -3,7 +3,7 @@
 #Script mode. Can be either backup or restore .. executes the specified part of the script
 Mode="restore"
 
-#Backup mode
+###BACKUP MODE
 # Set the maximum number of backup files to keep
 BACKUP_LIMIT=4
 
@@ -82,3 +82,5 @@ echo "Wait for the script to finish, even when the progress bar shows 100%!"
 show_progress $!
 
 echo "Backup completed: $backup_file"
+
+###RESTORE MODE
