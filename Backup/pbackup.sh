@@ -102,6 +102,7 @@ elif [ "$MODE" == "restore" ]; then
             echo "You selected: $file"
             echo "Restoring backup to ${RESTORE_LOCATION}..."
             echo "Please be patient while the backup is being restored"
+            
             # Function to print a dot every 15 seconds
             print_dots() {
                 while kill -0 $1 2>/dev/null; do
@@ -115,6 +116,7 @@ elif [ "$MODE" == "restore" ]; then
             dot_pid=$!
             sudo tar xzf "$file" --overwrite -C "${RESTORE_LOCATION}"
             kill $dot_pid
+            
             echo "Restore completed."
             break
         else
