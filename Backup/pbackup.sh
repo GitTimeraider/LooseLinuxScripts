@@ -3,8 +3,8 @@
 # Set the maximum number of backup files to keep
 BACKUP_LIMIT=4
 
-# Set the backup location
-BACKUP_LOCATION="/mnt/USB/backup/"
+# Set the backup location. End the location with /
+BACKUP_LOCATION="/mnt/"
 
 # Check for existing backup files and delete the oldest if it reached the backup limit
 backup_files=$(ls ${BACKUP_LOCATION}pbackup_*.tar.gz 2>/dev/null)
