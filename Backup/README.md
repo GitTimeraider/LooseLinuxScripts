@@ -1,4 +1,4 @@
-# LooseLinuxScripts - Backup
+# LooseLinuxScripts - DR Backup
 Description for the scripts:
 
 ## pbackup.sh
@@ -15,5 +15,8 @@ BACKUP_LIMIT: Maximal amount of backups that wil be saved with the backup mode. 
 
 ### How does it work
 
+Runs an DD command to copy the entire /dev/sda disk and then compresses it using gzip.
+
 ### How to restore
 
+Set up an empty system, run the script in restore mode from a mounted location (also containing the backup files)
