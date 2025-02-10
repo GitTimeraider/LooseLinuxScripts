@@ -23,7 +23,7 @@ if [ "$MODE" == "backup" ]; then
 
     ### BACKUP MODE
     # Check for existing backup files and delete the oldest if it reached the backup limit
-    backup_files=$(ls ${BACKUP_LOCATION}pbackup_*.img 2>/dev/null)
+    backup_files=$(ls ${BACKUP_LOCATION}pbackup_*.img.gz 2>/dev/null)
     backup_count=$(echo "$backup_files" | wc -l)
     if [ "$backup_count" -ge "$BACKUP_LIMIT" ]; then
         oldest_backup=$(echo "$backup_files" | tail -1)
@@ -31,7 +31,7 @@ if [ "$MODE" == "backup" ]; then
     fi
 
     # Define a new backup file with the current date
-    backup_file="${BACKUP_LOCATION}pbackup_$(date +%Y-%m-%d).img"
+    backup_file="${BACKUP_LOCATION}pbackup_$(date +%Y-%m-%d).img.gz"
 
     # Check if a backup file with the same name already exists and delete it if it does
     if [ -f "$backup_file" ]; then
@@ -40,10 +40,10 @@ if [ "$MODE" == "backup" ]; then
 
     echo "Backup started!"
 
-    # Run the dd command and print dots in the background
+    # Run the dd command piped to gzip and print dots in the background
     (print_dots $$) &
     dot_pid=$!
-    sudo dd if=/dev/sda of="$backup_file" bs=4M status=progress
+    sudo dd if=/dev/sda bs=4M status=progress | gzip > "$backup_file"
     kill $dot_pid
 
     echo "Backup completed: $backup_file"
@@ -52,7 +52,7 @@ elif [ "$MODE" == "restore" ]; then
 
     ### RESTORE MODE
     echo "Available backup files that can be restored:"
-    backup_files=($(ls ${BACKUP_LOCATION}pbackup_*.img 2>/dev/null))
+    backup_files=($(ls ${BACKUP_LOCATION}pbackup_*.img.gz 2>/dev/null))
     if [ ${#backup_files[@]} -eq 0 ]; then
         echo "No backup files found in ${BACKUP_LOCATION}"
         exit 1
@@ -65,10 +65,10 @@ elif [ "$MODE" == "restore" ]; then
             echo "Restoring backup..."
             echo "Please be patient while the backup is being restored"
 
-            # Run the dd command and print dots in the background
+            # Run the gzip command piped to dd and print dots in the background
             (print_dots $$) &
             dot_pid=$!
-            sudo dd if="$file" of=/dev/sda bs=4M status=progress
+            gunzip -c "$file" | sudo dd of=/dev/sda bs=4M status=progress
             kill $dot_pid
 
             echo "Restore completed."
