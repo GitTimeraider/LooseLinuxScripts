@@ -6,6 +6,11 @@ Script that can be used to backup and restore Linux systems using .tar zipping. 
 Can be manually adjusted to only backup specific folders if needed (Not through default variables). <br />
 As it backups into an .tar, it is possible to restore specific files from it without unzipping the entire package.
 
+### How does it work
+
+When backing up, it saves an .tar.gz in a specified location. That .tar contains all data on the system.<br />
+During the backup an progress bar appears. Do not take that to serious as it will often be incorrect. The progress bar is based on the size of the previous backup and tries predicting from there thus usually either ends slightly earlier or slightly later than 100%.
+
 ### Variables that can be changed in the script:
 
 MODE: Can be set to either "backup" or "restore" depending on what you want it to do
@@ -17,10 +22,7 @@ BACKUP_LIMIT: Maximal amount of backups that wil be saved with the backup mode. 
 
 RESTORE_LOCATION: Location it restores everything in the backup file to. Only works in restore mode.
 
-### How does it work
-
-When backing up, it saves an .tar.gz in a specified location. That .tar contains all data on the system.<br />
-During the backup an progress bar appears. Do not take that to serious as it will often be incorrect. The progress bar is based on the size of the previous backup and tries predicting from there thus usually either ends slightly earlier or slightly later than 100%.
+Exclusions: Exclusions is not a separate variable. Go into the script up to the --exclude portion of the bacup tar command and copy on of the lines after which you adjust the location for a new exclusion.
 
 ### How to disaster recovery
 
