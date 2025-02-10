@@ -13,15 +13,11 @@ Always end this location on /. Example: "/mnt/USB/"
 
 BACKUP_LIMIT: Maximal amount of backups that wil be saved with the backup mode. Removes the oldest backup file if it already reached 4. Only works in backup mode.
 
-RESTORE_LOCATION: Location it restores everything in the backup file to. Only works in restore mode.
-
 ### How does it work
 
-When backing up, it saves an .tar.gz in a specified location. That .tar contains all data on the system.
-
-During the backup an progress bar appears. Do not take that to serious as it will often be incorrect. The progress bar is based on the size of the previous backup and tries predicting from there thus usually either ends slightly earlier or slightly later than 100%.
+When backing up, it saves an .img.gz in a specified location. That .img contains the entire main disk (/dev/sda).
+When restoring it unzip the .img and then restores everything to the /dev/sda that is connected at that time.
 
 ### How to restore
 
-Set up a new SD card or disk by either setting up an linux partition manually using (fdisk or gparted) or install an linux-based OS on it with the idea to have that set it up and then overwrite everything.
-Connect/mount it to a different device so system files will not be in use and then either use restore mode of the script or use any unzipper in any OS to unzip the files and let it unzip onto the empty partition or overwrite the new OS files on the highest level.
+Using restore mode, it unpacks the img and then replaces the current /dev/sda, meaning its best to execute this script from an externally mounted disk or OS.
