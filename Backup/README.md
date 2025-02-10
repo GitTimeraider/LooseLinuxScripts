@@ -1,7 +1,7 @@
 # LooseLinuxScripts - DR Backup
 Description for the scripts:
 
-## pdrbackup.sh
+## pbackup.sh
 Script that can be used to backup and restore Linux systems using .tar zipping. Can be manually adjusted to only backup specific folders if needed (Not through default variables)
 
 ### Variables that can be changed in the script:
