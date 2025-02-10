@@ -13,6 +13,13 @@ BACKUP_LIMIT=4
 # Location to restore to
 RESTORE_LOCATION="/"
 
+ # Function to print a dot every 15 seconds
+print_dots() {
+    while kill -0 $1 2>/dev/null; do
+        echo -n "."
+        sleep 15
+    done
+ }
 # Check the mode and execute the corresponding part of the script
 if [ "$MODE" == "backup" ]; then
 
@@ -54,14 +61,6 @@ elif [ "$MODE" == "restore" ]; then
             echo "You selected: $file"
             echo "Restoring backup to ${RESTORE_LOCATION}..."
             echo "Please be patient while the backup is being restored"
-            
-            # Function to print a dot every 15 seconds
-            print_dots() {
-                while kill -0 $1 2>/dev/null; do
-                    echo -n "."
-                    sleep 15
-                done
-            }
 
             # Run the dd command and print dots in the background
             (print_dots $$) &
