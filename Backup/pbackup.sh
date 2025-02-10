@@ -19,7 +19,7 @@ print_dots() {
         echo -n "."
         sleep 15
     done
- }
+}
 # Check the mode and execute the corresponding part of the script
 if [ "$MODE" == "backup" ]; then
 
@@ -41,7 +41,12 @@ if [ "$MODE" == "backup" ]; then
     fi
 
     echo "Backup started!"
+
+    # Run the dd command and print dots in the background
+    (print_dots $$) &
+    dot_pid=$!
     sudo dd if=/dev/sda of="$backup_file" bs=4M status=progress
+    kill $dot_pid
 
     echo "Backup completed: $backup_file"
 
@@ -67,7 +72,7 @@ elif [ "$MODE" == "restore" ]; then
             dot_pid=$!
             sudo dd if="$file" of=/dev/sda bs=4M status=progress
             kill $dot_pid
-            
+
             echo "Restore completed."
             break
         else
