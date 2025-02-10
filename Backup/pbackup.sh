@@ -65,7 +65,7 @@ if [ "$MODE" == "backup" ]; then
 
     # Create the tar archive in the background
     {
-        sudo tar czf "$backup_file" \
+        sudo tar czpf "$backup_file" \
             --exclude="$backup_file" \
             --exclude=/dev \
             --exclude=/mnt \
@@ -114,7 +114,7 @@ elif [ "$MODE" == "restore" ]; then
             # Run the tar command and print dots in the background
             (print_dots $$) &
             dot_pid=$!
-            sudo tar xzf "$file" --overwrite -C "${RESTORE_LOCATION}"
+            sudo tar xzpf "$file" --overwrite -C "${RESTORE_LOCATION}"
             kill $dot_pid
             
             echo "Restore completed."
