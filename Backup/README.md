@@ -15,9 +15,5 @@ BACKUP_LIMIT: Maximal amount of backups that wil be saved with the backup mode. 
 
 ### How does it work
 
-When backing up, it saves an .img.gz in a specified location. That .img contains the entire main disk (/dev/sda).
-When restoring it unzip the .img and then restores everything to the /dev/sda that is connected at that time.
-
 ### How to restore
 
-Using restore mode, it unpacks the img and then replaces the current /dev/sda, meaning its best to execute this script from an externally mounted disk or OS.
