@@ -13,6 +13,8 @@ Always end this location on /. Example: "/mnt/USB/"
 
 BACKUP_LIMIT: Maximal amount of backups that wil be saved with the backup mode. Removes the oldest backup file if it already reached 4. Only works in backup mode.
 
+RESTORE_LOCATION: Where it will restore the entire backup to. Mostly during disaster recovery this would be "/"
+
 ### How does it work
 
 Runs an DD command to copy the entire /dev/sda disk and then compresses it using gzip.
