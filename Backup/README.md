@@ -24,5 +24,5 @@ During the backup an progress bar appears. Do not take that to serious as it wil
 
 ### How to restore
 
-Set up a new SD card or disk by either setting up an linux partition manually using (fdisk or gparted) or install an linux-based OS on it with the idea to have that set it up and then overwrite everything.<br />
+Set up a new SD card or disk by either setting up an linux partition manually using (fdisk or gparted) or install an linux-based OS on it with the idea to have that set it up and then overwrite everything not needed.<br />
 Connect/mount it to a different device so system files will not be in use and then either use restore mode of the script or use any unzipper in any OS to unzip the files and let it unzip onto the empty partition or overwrite the new OS files on the highest level.
