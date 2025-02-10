@@ -28,7 +28,7 @@ Exclusions: Exclusions is not a separate variable. Go into the script up to the 
 
 Prepare the New Drive: Ensure the new drive is formatted and has the proper filesystem (usually ext4 for Raspberry Pi).
 
-Restore the Backup: Boot the device from a different medium (such as a USB stick or SD card), and mount the new drive. Then  connect the device containing script and backup files and restore the backup using the script with the correct restore location.
+Restore the Backup: Boot the device from a different medium (such as a USB stick or SD card) containing an installed version of the original OS, and mount the new drive. Then  connect the device containing script and backup files and restore the backup using the script with the correct restore location.
 
 Fix the Bootloader (if needed): After restoring the system, you may need to install the bootloader on the new drive (especially if it's a different drive than the one you are currently booting from). This depends on the boot method you're using (SD card or USB boot). If the new drive is the boot drive, you will need to ensure the boot partition is properly set up.
 
