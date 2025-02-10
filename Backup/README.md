@@ -22,7 +22,14 @@ RESTORE_LOCATION: Location it restores everything in the backup file to. Only wo
 When backing up, it saves an .tar.gz in a specified location. That .tar contains all data on the system.<br />
 During the backup an progress bar appears. Do not take that to serious as it will often be incorrect. The progress bar is based on the size of the previous backup and tries predicting from there thus usually either ends slightly earlier or slightly later than 100%.
 
-### How to restore
+### How to disaster recovery
 
-Set up a new SD card or disk by either setting up an linux partition manually using (fdisk or gparted) or install an linux-based OS on it with the idea to have that set it up and then overwrite everything not needed.<br />
-Connect/mount it to a different device so system files will not be in use and then either use restore mode of the script or use any unzipper in any OS to unzip the files and let it unzip onto the empty partition or overwrite the new OS files on the highest level.
+Prepare the New Drive: Ensure the new drive is formatted and has the proper filesystem (usually ext4 for Raspberry Pi).
+
+Restore the Backup: Boot the Raspberry Pi from a different medium (such as a USB stick or SD card), and mount the new drive. Then restore the backup using the script and the correct restore location.
+
+Fix the Bootloader (if needed): After restoring the system, you may need to install the bootloader on the new drive (especially if it's a different drive than the one you are currently booting from). This depends on the boot method you're using (SD card or USB boot). If the new drive is the boot drive, you will need to ensure the boot partition is properly set up.
+
+Check Disk UUIDs: If you changed the disk or partition, make sure the UUIDs in /etc/fstab match the new setup. You can check UUIDs with blkid and update /etc/fstab accordingly.
+
+
