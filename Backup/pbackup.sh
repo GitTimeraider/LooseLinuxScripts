@@ -9,10 +9,6 @@ BACKUP_LOCATION="/mnt/"
 # Set the maximum number of backup files to keep
 BACKUP_LIMIT=4 
 
-### Restore variables. Only work in restore mode
-# Location to restore to
-RESTORE_LOCATION="/"
-
  # Function to print a dot every 15 seconds
 print_dots() {
     while kill -0 $1 2>/dev/null; do
@@ -64,7 +60,7 @@ elif [ "$MODE" == "restore" ]; then
     select file in "${backup_files[@]}"; do
         if [ -n "$file" ]; then
             echo "You selected: $file"
-            echo "Restoring backup to ${RESTORE_LOCATION}..."
+            echo "Restoring backup..."
             echo "Please be patient while the backup is being restored"
 
             # Run the dd command and print dots in the background
