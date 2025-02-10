@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#gzip is required if not installed yet
+
 # Script mode. Can be either backup or restore .. executes the specified part of the script
 MODE="backup"
 # Set the backup location. End the location with /
