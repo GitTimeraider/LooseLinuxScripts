@@ -2,7 +2,7 @@
 Description for the scripts:
 
 ## pbackup.sh
-Script that can be used to backup and restore Linux systems using .tar zipping. Can be manually adjusted to only backup specific folders if needed (Not through default variables)
+Script that can be used to backup and restore Linux systems using .tar zipping. Can be manually adjusted to only backup specific folders if needed (Not through default variables).  As it backups into an .tar, it is possible to restore specific files from it without unzipping the entire package.
 
 ### Variables that can be changed in the script:
 
