@@ -22,11 +22,14 @@ BACKUP_LIMIT: Maximal amount of backups that wil be saved with the backup mode. 
 
 RESTORE_LOCATION: Location it restores everything in the backup file to. Only works in restore mode.
 
+FILES_TO_EXTRACT: Files/path to extract from the zipped backup. Example: "/var/test/test" or "/var/test/test.py". Only works in restore mode.
+
 Exclusions: Exclusions is not a separate variable. Go into the script up to the --exclude portion of the bacup tar command and copy on of the lines after which you adjust the location for a new exclusion.
 
 ### Restoring specific files
 
-Editing...
+Script needs to be in MODE="restore"
+Fill in the variable FILES_TO_EXTRACT on what exactly to extract from the backup which it then restores to the RESTORE_LOCATION.
 
 ### How to disaster recovery
 
@@ -38,8 +41,8 @@ Mount the new disk (if it's not already mounted) and identify its device name (e
 Create a Filesystem on the New Disk (if needed): If you are restoring to a fresh disk, you need to create a filesystem on it. You can use the mkfs command to do this, e.g.,:<br />
 sudo mkfs.ext4 /dev/sda1  # Replace /dev/sda1 with your new disk partition<br />
 Mount the New Disk: Mount the newly formatted disk to a temporary mount point:<br />
-
 sudo mount /dev/sda1 /mnt<br />
+
 Copy the Backup onto the New Disk: Copy the backup tarball (the file you created earlier) from the backup location (e.g., external drive) to the mounted disk.<br />
 Example:<br />
 sudo cp /path/to/backup.tar.gz /mnt/<br />
