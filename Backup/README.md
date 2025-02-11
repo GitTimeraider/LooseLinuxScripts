@@ -36,7 +36,7 @@ Install the new disk (or SD card) into your device.<br />
 Ensure that the new disk is formatted (e.g., with ext4 for Linux-based systems).<br />
 Mount the new disk (if it's not already mounted) and identify its device name (e.g., /dev/sda, /dev/mmcblk0, etc.).<br />
 Create a Filesystem on the New Disk (if needed): If you are restoring to a fresh disk, you need to create a filesystem on it. You can use the mkfs command to do this, e.g.,:<br />
-sudo mkfs.ext4 /dev/sda1  # Replace /dev/sda1 with your new disk partition<br />
+sudo mkfs.ext4 /dev/sda1  <br /> # Replace /dev/sda1 with your new disk partition<br />
 Mount the New Disk: Mount the newly formatted disk to a temporary mount point:<br />
 sudo mount /dev/sda1 /mnt<br />
 
