@@ -28,42 +28,42 @@ Exclusions: Exclusions is not a separate variable. Go into the script up to the 
 
 Prepare the New Disk:
 
-Install the new disk (or SD card) into your device.
-Ensure that the new disk is formatted (e.g., with ext4 for Linux-based systems).
-Mount the new disk (if it's not already mounted) and identify its device name (e.g., /dev/sda, /dev/mmcblk0, etc.).
-Create a Filesystem on the New Disk (if needed): If you are restoring to a fresh disk, you need to create a filesystem on it. You can use the mkfs command to do this, e.g.,:
-sudo mkfs.ext4 /dev/sda1  # Replace /dev/sda1 with your new disk partition
-Mount the New Disk: Mount the newly formatted disk to a temporary mount point:
+Install the new disk (or SD card) into your device.<br />
+Ensure that the new disk is formatted (e.g., with ext4 for Linux-based systems).<br />
+Mount the new disk (if it's not already mounted) and identify its device name (e.g., /dev/sda, /dev/mmcblk0, etc.).<br />
+Create a Filesystem on the New Disk (if needed): If you are restoring to a fresh disk, you need to create a filesystem on it. You can use the mkfs command to do this, e.g.,:<br />
+sudo mkfs.ext4 /dev/sda1  # Replace /dev/sda1 with your new disk partition<br />
+Mount the New Disk: Mount the newly formatted disk to a temporary mount point:<br />
 
-sudo mount /dev/sda1 /mnt
-Copy the Backup onto the New Disk: Copy the backup tarball (the file you created earlier) from the backup location (e.g., external drive) to the mounted disk.
+sudo mount /dev/sda1 /mnt<br />
+Copy the Backup onto the New Disk: Copy the backup tarball (the file you created earlier) from the backup location (e.g., external drive) to the mounted disk.<br />
 
-Example:
-sudo cp /path/to/backup.tar.gz /mnt/
-Extract the Backup onto the New Disk: Once the backup file is copied to the new disk, navigate to the mount point (/mnt) and extract the backup:
+Example:<br />
+sudo cp /path/to/backup.tar.gz /mnt/<br />
 
-cd /mnt
-sudo tar xzpf backup_file.tar.gz -C /
-Make sure to replace backup_file.tar.gz with the actual name of your backup file. The -C / option tells tar to extract the backup starting from the root (/) directory of the system.
+Extract the Backup onto the New Disk: Once the backup file is copied to the new disk, navigate to the mount point (/mnt) and extract the backup:<br />
+cd /mnt<br />
+sudo tar xzpf backup_file.tar.gz -C /<br />
+Make sure to replace backup_file.tar.gz with the actual name of your backup file. The -C / option tells tar to extract the backup starting from the root (/) directory of the system.<br />
 
 Reinstall Bootloader (if required): If your new disk is a different disk type (e.g., SSD, USB stick, etc.), you may need to reinstall the bootloader or configure it to boot from the new disk. This can vary based on the Raspberry Pi model and whether you’re using U-Boot or the default bootloader.
 
-To reinstall the bootloader, follow the instructions for your specific setup, for example:
-sudo raspi-config
-Or follow specific setups for Ubuntu or other Linux variants
-Under Advanced Options, you can reconfigure the boot device (SD card or USB).
+To reinstall the bootloader, follow the instructions for your specific setup, for example:<br />
+sudo raspi-config<br />
+Or follow specific setups for Ubuntu or other Linux variants<br />
+Under Advanced Options, you can reconfigure the boot device (SD card or USB).<br />
 
 Update fstab: After the extraction, the system will need to know where to mount its filesystems. You might need to update /etc/fstab to reflect the correct partition UUID or device names for the new disk.
 
-To get the UUIDs of your partitions, use:
-sudo blkid
+To get the UUIDs of your partitions, use:<br />
+sudo blkid<br />
 Edit /etc/fstab to reflect the new disk's UUID for the root filesystem (/) and other mounted partitions.
 
-sudo nano /etc/fstab
+sudo nano /etc/fstab<br />
 Make sure the entry for the root filesystem is correct (e.g., /dev/sda1 or the new partition's UUID).
 
 Reboot the System: Once the backup has been restored and the bootloader is reinstalled (if necessary), reboot your Raspberry Pi:
-sudo reboot
+sudo reboot<br />
 Verify the Restoration: After the reboot, verify that your system is running correctly. Check whether all the files, configurations, and services are intact.
 
 
