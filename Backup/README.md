@@ -37,7 +37,6 @@ Mount the New Disk: Mount the newly formatted disk to a temporary mount point:<b
 
 sudo mount /dev/sda1 /mnt<br />
 Copy the Backup onto the New Disk: Copy the backup tarball (the file you created earlier) from the backup location (e.g., external drive) to the mounted disk.<br />
-
 Example:<br />
 sudo cp /path/to/backup.tar.gz /mnt/<br />
 
@@ -46,19 +45,16 @@ cd /mnt<br />
 sudo tar xzpf backup_file.tar.gz -C /<br />
 Make sure to replace backup_file.tar.gz with the actual name of your backup file. The -C / option tells tar to extract the backup starting from the root (/) directory of the system.<br />
 
-Reinstall Bootloader (if required): If your new disk is a different disk type (e.g., SSD, USB stick, etc.), you may need to reinstall the bootloader or configure it to boot from the new disk. This can vary based on the Raspberry Pi model and whether you’re using U-Boot or the default bootloader.
-
+Reinstall Bootloader (if required): If your new disk is a different disk type (e.g., SSD, USB stick, etc.), you may need to reinstall the bootloader or configure it to boot from the new disk. This can vary based on the Raspberry Pi model and whether you’re using U-Boot or the default bootloader <br />
 To reinstall the bootloader, follow the instructions for your specific setup, for example:<br />
 sudo raspi-config<br />
 Or follow specific setups for Ubuntu or other Linux variants<br />
 Under Advanced Options, you can reconfigure the boot device (SD card or USB).<br />
 
 Update fstab: After the extraction, the system will need to know where to mount its filesystems. You might need to update /etc/fstab to reflect the correct partition UUID or device names for the new disk.
-
 To get the UUIDs of your partitions, use:<br />
 sudo blkid<br />
-Edit /etc/fstab to reflect the new disk's UUID for the root filesystem (/) and other mounted partitions.
-
+Edit /etc/fstab to reflect the new disk's UUID for the root filesystem (/) and other mounted partitions.<br />
 sudo nano /etc/fstab<br />
 Make sure the entry for the root filesystem is correct (e.g., /dev/sda1 or the new partition's UUID).
 
