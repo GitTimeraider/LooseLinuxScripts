@@ -24,6 +24,10 @@ RESTORE_LOCATION: Location it restores everything in the backup file to. Only wo
 
 Exclusions: Exclusions is not a separate variable. Go into the script up to the --exclude portion of the bacup tar command and copy on of the lines after which you adjust the location for a new exclusion.
 
+### Restoring specific files
+
+Editing...
+
 ### How to disaster recovery
 
 Prepare the New Disk:
