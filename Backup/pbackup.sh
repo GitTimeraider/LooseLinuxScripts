@@ -12,6 +12,8 @@ BACKUP_LIMIT=4
 ### Restore variables. Only work in restore mode
 # Location to restore to
 RESTORE_LOCATION="/"
+# Files to extract during restore. If set will extract only specific files, if this is empty will restore the entire zip.
+FILES_TO_EXTRACT=""
 
 # Check the mode and execute the corresponding part of the script
 if [ "$MODE" == "backup" ]; then
@@ -102,7 +104,7 @@ elif [ "$MODE" == "restore" ]; then
             echo "You selected: $file"
             echo "Restoring backup to ${RESTORE_LOCATION}..."
             echo "Please be patient while the backup is being restored"
-            
+
             # Function to print a dot every 15 seconds
             print_dots() {
                 while kill -0 $1 2>/dev/null; do
@@ -114,9 +116,13 @@ elif [ "$MODE" == "restore" ]; then
             # Run the tar command and print dots in the background
             (print_dots $$) &
             dot_pid=$!
-            sudo tar xzpf "$file" --overwrite -C "${RESTORE_LOCATION}"
+            if [ -z "$FILES_TO_EXTRACT" ]; then
+                sudo tar xzpf "$file" --overwrite -C "${RESTORE_LOCATION}"
+            else
+                sudo tar xzpf "$file" --overwrite -C "${RESTORE_LOCATION}" $FILES_TO_EXTRACT
+            fi
             kill $dot_pid
-            
+
             echo "Restore completed."
             break
         else
