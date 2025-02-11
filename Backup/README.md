@@ -49,9 +49,9 @@ cd /mnt<br />
 sudo tar xzpf backup_file.tar.gz -C /<br />
 Make sure to replace backup_file.tar.gz with the actual name of your backup file. The -C / option tells tar to extract the backup starting from the root (/) directory of the system.<br />
 
-Reinstall Bootloader (if required): If your new disk is a different disk type (e.g., SSD, USB stick, etc.), you may need to reinstall the bootloader or configure it to boot from the new disk. This can vary based on the Raspberry Pi model and whether you’re using U-Boot or the default bootloader <br />
+Reinstall Bootloader (if required): If your new disk is a different disk type (e.g., SSD, USB stick, etc.), you may need to reinstall the bootloader or configure it to boot from the new disk. This can vary based on the OS and whether you’re using U-Boot or the default bootloader <br />
 To reinstall the bootloader, follow the instructions for your specific setup, for example:<br />
-sudo raspi-config<br />
+sudo raspi-config .. for Raspberry PI<br />
 Or follow specific setups for Ubuntu or other Linux variants<br />
 Under Advanced Options, you can reconfigure the boot device (SD card or USB).<br />
 
