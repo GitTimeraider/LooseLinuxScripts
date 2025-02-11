@@ -2,6 +2,9 @@
 Description for the scripts:
 
 ## pbackup.sh
+
+Run script as sudo!
+
 Script that can be used to backup and restore Linux systems using .tar zipping. <br />
 Can be manually adjusted to only backup specific folders if needed (Not through default variables). <br />
 As it backups into an .tar, it is possible to restore specific files from it without unzipping the entire package.
