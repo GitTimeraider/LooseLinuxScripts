@@ -23,7 +23,7 @@ Always end this location on /. Example: "/mnt/USB/"
 
 BACKUP_LIMIT: Maximal amount of backups that wil be saved with the backup mode. Removes the oldest backup file if it already reached 4. Only works in backup mode.
 
-Exclusions: Exclusions is not a separate variable. Go into the script up to the --exclude portion of the bacup tar command and copy on of the lines after which you adjust the location for a new exclusion.
+Exclusions: Exclusions is not a separate variable. Go into the script up to the --exclude portion of the bacup tar command and fully copy one of the lines after which you adjust the location for a new exclusion.
 
 ### Restoring specific files
 
