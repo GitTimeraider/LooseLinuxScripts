@@ -12,7 +12,8 @@ As it backups into an .tar, it is possible to restore specific files from it wit
 ### How does it work
 
 When backing up, it saves an .tar.gz in a specified location. That .tar contains all data on the system.<br />
-During the backup an progress bar appears. Do not take that to serious as it will often be incorrect. The progress bar is based on the size of the previous backup and tries predicting from there thus usually either ends slightly earlier or slightly later than 100%.
+During the backup an progress bar appears. Do not take that to serious as it will often be incorrect. The progress bar is based on the size of the previous backup and tries predicting from there thus usually either ends slightly earlier or slightly later than 100%.<br />
+This is also why the first run, it will be extremely off due to having no comparison file
 
 ### Variables that can be changed in the script:
 
