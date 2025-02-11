@@ -9,12 +9,6 @@ BACKUP_LOCATION="/mnt/"
 # Set the maximum number of backup files to keep
 BACKUP_LIMIT=4 
 
-### Restore variables. Only work in restore mode
-# Location to restore to
-RESTORE_LOCATION="/"
-# Files to extract during restore. If set will extract only specific files, if this is empty will restore the entire zip.
-FILES_TO_EXTRACT=""
-
 # Check the mode and execute the corresponding part of the script
 if [ "$MODE" == "backup" ]; then
 
@@ -91,17 +85,24 @@ if [ "$MODE" == "backup" ]; then
 elif [ "$MODE" == "restore" ]; then
 
     ### RESTORE MODE
-    echo "Available backup files that can be restored:"
+    echo "Available backup files that can be used:"
     backup_files=($(ls ${BACKUP_LOCATION}pbackup_*.tar.gz 2>/dev/null))
     if [ ${#backup_files[@]} -eq 0 ]; then
         echo "No backup files found in ${BACKUP_LOCATION}"
         exit 1
     fi
 
-    PS3="Which file do you want to restore? "
+    PS3="Which backup do you want to restore from? "
     select file in "${backup_files[@]}"; do
         if [ -n "$file" ]; then
             echo "You selected: $file"
+            
+            # Prompt for restore location
+            read -p "Enter the location to restore to: " RESTORE_LOCATION
+            
+            # Prompt for files to extract
+            read -p "Enter the files/folders to extract (leave empty to restore entire backup): " FILES_TO_EXTRACT
+
             echo "Restoring backup to ${RESTORE_LOCATION}..."
             echo "Please be patient while the backup is being restored"
 
