@@ -20,16 +20,13 @@ Always end this location on /. Example: "/mnt/USB/"
 
 BACKUP_LIMIT: Maximal amount of backups that wil be saved with the backup mode. Removes the oldest backup file if it already reached 4. Only works in backup mode.
 
-RESTORE_LOCATION: Location it restores everything in the backup file to. Only works in restore mode.
-
-FILES_TO_EXTRACT: Files/path to extract from the zipped backup. Example: "/var/test/test" or "/var/test/test.py". Only works in restore mode.
-
 Exclusions: Exclusions is not a separate variable. Go into the script up to the --exclude portion of the bacup tar command and copy on of the lines after which you adjust the location for a new exclusion.
 
 ### Restoring specific files
 
-Script needs to be in MODE="restore"
-Fill in the variable FILES_TO_EXTRACT on what exactly to extract from the backup which it then restores to the RESTORE_LOCATION.
+Script needs to be in MODE="restore"<br />
+Run the script to choose what backup file to restore from, what to restore and where to restore to.<br />
+Existing files with the same name will be overwritten!
 
 ### How to disaster recovery
 
