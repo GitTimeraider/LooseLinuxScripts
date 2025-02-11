@@ -98,10 +98,10 @@ elif [ "$MODE" == "restore" ]; then
             echo "You selected: $file"
             
             # Prompt for restore location
-            read -p "Enter the location to restore to: " RESTORE_LOCATION
+            read -p "Enter the location to restore to. Example: /mnt/USB " RESTORE_LOCATION
             
             # Prompt for files to extract
-            read -p "Enter the files/folders to extract (leave empty to restore entire backup): " FILES_TO_EXTRACT
+            read -p "Enter the files/folders to extract (leave empty to restore entire backup). Do NOT start with an /. Example: etc/xml : " FILES_TO_EXTRACT
 
             echo "Restoring backup to ${RESTORE_LOCATION}..."
             echo "Please be patient while the backup is being restored"
@@ -118,9 +118,9 @@ elif [ "$MODE" == "restore" ]; then
             (print_dots $$) &
             dot_pid=$!
             if [ -z "$FILES_TO_EXTRACT" ]; then
-                sudo tar xzpf "$file" --overwrite -C "${RESTORE_LOCATION}"
+                sudo tar xzpf "$file" --overwrite -C "${RESTORE_LOCATION}/"
             else
-                sudo tar xzpf "$file" --overwrite -C "${RESTORE_LOCATION}" $FILES_TO_EXTRACT
+                sudo tar xzpf "$file" --overwrite -C "${RESTORE_LOCATION}/" $FILES_TO_EXTRACT
             fi
             kill $dot_pid
 
