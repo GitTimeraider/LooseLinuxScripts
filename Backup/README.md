@@ -27,6 +27,7 @@ Exclusions: Exclusions is not a separate variable. Go into the script up to the 
 Script needs to be in MODE="restore"<br />
 Run the script to choose what backup file to restore from, what to restore and where to restore to.<br />
 Existing files with the same name will be overwritten!
+This does use the BACKUP_LOCATION variable to determine where the backups are location.
 
 ### How to disaster recovery
 
