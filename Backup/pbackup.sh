@@ -9,7 +9,9 @@ BACKUP_LOCATION="/mnt/"
 # What folder or file to backup?
 BACKUP_TARGET="/"
 # Set the maximum number of backup files to keep
-BACKUP_LIMIT=4 
+BACKUP_LIMIT=4
+# Add additional exclusions
+BACKUP_EXCLUDE=""
 
 # Check the mode and execute the corresponding part of the script
 if [ "$MODE" == "backup" ]; then
