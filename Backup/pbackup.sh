@@ -7,7 +7,7 @@ BACKUP_LOCATION="/mnt/"
 
 ### Backup Variables. Only work in backup mode
 # What folder or file to backup?
-BACKUP="/"
+BACKUP_TARGET="/"
 # Set the maximum number of backup files to keep
 BACKUP_LIMIT=4 
 
