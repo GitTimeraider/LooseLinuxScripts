@@ -74,7 +74,8 @@ if [ "$MODE" == "backup" ]; then
             --exclude=/tmp \
             --exclude=/media \
             --exclude=/lost+found \
-            / 2>/dev/null
+            --exclude="$BACKUP_EXCLUDE" \
+            "$BACKUP_TARGET" 2>/dev/null
     } &
 
     # Show warning
