@@ -1,4 +1,4 @@
-# ${{\color{LightBlue}\Huge{\textsf{  LooseLinuxScripts - Backup \}}}}\$
+# ${{\color{Purple}\Huge{\textsf{  LooseLinuxScripts - Backup \}}}}\$
 
 # pbackup.sh
 
