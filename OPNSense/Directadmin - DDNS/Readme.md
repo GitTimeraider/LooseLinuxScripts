@@ -1,4 +1,4 @@
-# ${{\color{Purple}\Huge{\textsf{Directadmin DDNS\}}}}\$
+# ${{\color{Purple}\Huge{\textsf{Directadmin-DDNS\}}}}\$
 
 Dynamic DNS setup for OPNSense - Allows for setting up Dynamic DNS based on Direct Admin API within OPNSense Cron UI
 <br />
