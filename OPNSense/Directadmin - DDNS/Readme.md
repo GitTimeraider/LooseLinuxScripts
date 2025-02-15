@@ -1,5 +1,5 @@
-# ${{\color{Purple}\Huge{\textsf{Directadmin-DDNS\}}}}\$
-
+# ${{\color{Purple}\Huge{\textsf{Dynamic DNS\}}}}\$
+# ${{\color{Purple}\Huge{\textsf{for Directadmin\}}}}\$
 Dynamic DNS setup for OPNSense - Allows for setting up Dynamic DNS based on Direct Admin API within OPNSense Cron UI
 <br />
 !!! This simple script is mostly combined together for myself and thus might not be fully suited for others. It lacks features and might have additions that are undesired for some. The script ofcourse can be adjusted accordingly with a little bit of Bash knowledge.
