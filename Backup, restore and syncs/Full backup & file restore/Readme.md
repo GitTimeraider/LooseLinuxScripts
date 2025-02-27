@@ -32,39 +32,60 @@ This does use the BACKUP_LOCATION variable to determine where the backups are lo
 
 ## How to disaster recovery
 
-Prepare the New Disk:
+To restore the backup you created on a different disk, you can follow these general steps:
 
-Install the new disk (or SD card) into your device.<br />
-Ensure that the new disk is formatted (e.g., with ext4 for Linux-based systems).<br />
-Mount the new disk (if it's not already mounted) and identify its device name (e.g., /dev/sda, /dev/mmcblk0, etc.).<br />
-Create a Filesystem on the New Disk (if needed): If you are restoring to a fresh disk, you need to create a filesystem on it. You can use the mkfs command to do this, e.g.,:<br />
-sudo mkfs.ext4 /dev/sda1  <br /> # Replace /dev/sda1 with your new disk partition<br />
-Mount the New Disk: Mount the newly formatted disk to a temporary mount point:<br />
-sudo mount /dev/sda1 /mnt<br />
+1. Prepare the New Disk:
+Partition the new disk: If the new disk is not partitioned, you’ll need to partition it. You can use tools like fdisk, parted, or gparted for this. Make sure you create partitions that match the ones on your original system.
+Format the partitions: After partitioning, format them using an appropriate file system (e.g., ext4) with commands like:
+mkfs.ext4 /dev/sdX1
+Replace /dev/sdX1 with the actual partition you want to format.
 
-Copy the Backup onto the New Disk: Copy the backup tarball (the file you created earlier) from the backup location (e.g., external drive) to the mounted disk.<br />
-Example:<br />
-sudo cp /path/to/backup.tar.gz /mnt/<br />
+2. Mount the New Disk:
+Mount the new disk’s root partition (or wherever you want to restore the backup):
 
-Extract the Backup onto the New Disk: Once the backup file is copied to the new disk, navigate to the mount point (/mnt) and extract the backup:<br />
-cd /mnt<br />
-sudo tar xzpf backup_file.tar.gz -C /<br />
-Make sure to replace backup_file.tar.gz with the actual name of your backup file. The -C / option tells tar to extract the backup starting from the root (/) directory of the system.<br />
+mount /dev/sdX1 /mnt
+Replace /dev/sdX1 with the actual partition.
 
-Reinstall Bootloader (if required): If your new disk is a different disk type (e.g., SSD, USB stick, etc.), you may need to reinstall the bootloader or configure it to boot from the new disk. This can vary based on the OS and whether you’re using U-Boot or the default bootloader <br />
-To reinstall the bootloader, follow the instructions for your specific setup, for example:<br />
-sudo raspi-config .. for Raspberry PI<br />
-Or follow specific setups for Ubuntu or other Linux variants<br />
-Under Advanced Options, you can reconfigure the boot device (SD card or USB).<br />
+3. Mount Required Filesystems:
+If necessary, mount directories like /proc, /sys, and /dev to ensure the system functions properly during the restoration:
 
-Update fstab: After the extraction, the system will need to know where to mount its filesystems. You might need to update /etc/fstab to reflect the correct partition UUID or device names for the new disk.
-To get the UUIDs of your partitions, use:<br />
-sudo blkid<br />
-Edit /etc/fstab to reflect the new disk's UUID for the root filesystem (/) and other mounted partitions.<br />
-sudo nano /etc/fstab<br />
-Make sure the entry for the root filesystem is correct (e.g., /dev/sda1 or the new partition's UUID).
+mount --bind /dev /mnt/dev
+mount --bind /proc /mnt/proc
+mount --bind /sys /mnt/sys
 
-Reboot the System: Once the backup has been restored and the bootloader is reinstalled (if necessary), reboot your Raspberry Pi:
-sudo reboot<br />
-Verify the Restoration: After the reboot, verify that your system is running correctly. Check whether all the files, configurations, and services are intact.
+4. Extract the Backup:
+Now, extract the backup you created onto the new disk. Assuming your backup file is available (e.g., /path/to/backup.tar.gz), use the following command:
+
+sudo tar xzpf /path/to/backup.tar.gz -C /mnt
+This will extract the backup into /mnt, which is the root of the new disk.
+
+5. Reconfigure the System:
+After restoring the system, there are a few things you’ll need to do:
+
+Check /etc/fstab: If the disk UUIDs or mount points have changed, make sure to update /mnt/etc/fstab to reflect the new partition setup. You can find the UUIDs by running:
+
+blkid
+
+Update GRUB: You might need to reinstall and reconfigure GRUB if you're booting from this new disk. Mount the necessary filesystems and run the following command:
+
+mount --bind /dev /mnt/dev
+mount --bind /proc /mnt/proc
+mount --bind /sys /mnt/sys
+chroot /mnt
+grub-install /dev/sdX
+update-grub
+Replace /dev/sdX with the appropriate disk, typically the one you want to install the bootloader to (usually /dev/sda or /dev/sdb).
+
+Regenerate initramfs: Ensure that the initramfs is regenerated for the new system:
+
+update-initramfs -u
+Network Configuration: Ensure that the network settings are correct, especially if you're using DHCP or static IPs. Check the /mnt/etc/network/interfaces or /mnt/etc/netplan/ directory (depending on your distribution) and update them if necessary.
+
+6. Reboot the System:
+Once everything is set up and configured, unmount the mounted directories and reboot the system:
+
+umount /mnt/dev /mnt/proc /mnt/sys
+umount /mnt
+reboot
+After rebooting, the system should now boot from the new disk with the same configuration and data as the original disk.
 
