@@ -1,2 +1,2 @@
-# ${{\color{Purple}\Huge{\textsf{  LooseLinuxScripts \}}}}\$
-Collection of single file scripts for use on different Linux variants
+# ${{\color{Purple}\Huge{\textsf{  OPNSense \}}}}\$
+Collection of single file scripts for use on OPNSense
